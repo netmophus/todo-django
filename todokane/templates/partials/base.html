@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO LIST - Home</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <style>
+        .form-control{
+        padding: 1.375rem .75rem !important;
+    }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h3 class="pt-5 text-center">Gestion de Taches</h3>
+    <div class="row">
+        <h4 id="date-systeme" style="font-weight: 700;"></h4>       
+        <h5 id="heure-systeme" style="font-weight: 500; color:brown;"></h5>
+
+  {% block content %}
+  {% endblock %}
+
+
+  <script>
+    // Fonction pour mettre à jour la date et l'heure système
+    function mettreAJourDateHeureSysteme() {
+        // Crée un objet Date représentant l'heure actuelle
+        var date = new Date();
+
+        // Obtient les composants de la date et de l'heure
+        var annee = date.getFullYear();
+        var mois = date.getMonth() + 1; // Les mois commencent à 0
+        var jour = date.getDate();
+        var heures = date.getHours();
+        var minutes = date.getMinutes();
+        var secondes = date.getSeconds();
+
+        // Formate la date sous forme de chaîne YYYY-MM-DD
+        var dateFormattee = annee + '-' + (mois < 10 ? '0' : '') + mois + '-' + (jour < 10 ? '0' : '') + jour;
+
+        // Formate l'heure sous forme de chaîne HH:MM:SS
+        var heureFormattee = heures + ':' + (minutes < 10 ? '0' : '') + minutes + ':' + (secondes < 10 ? '0' : '') + secondes;
+
+        // Met à jour le contenu des éléments avec les id "date-systeme" et "heure-systeme"
+        document.getElementById('date-systeme').innerText = 'Nous sommes le : ' + dateFormattee;
+        document.getElementById('heure-systeme').innerText = 'Et il est : ' + heureFormattee;
+    }
+
+    // Met à jour la date et l'heure système toutes les secondes
+    setInterval(mettreAJourDateHeureSysteme, 1000);
+
+    // Appel initial pour afficher la date et l'heure au chargement de la page
+    mettreAJourDateHeureSysteme();
+</script>
+
+    
+</body>
+</html>
